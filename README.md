@@ -82,7 +82,8 @@ So yes it should be perfectly possible to incorporate this into an arduino firmw
 only need a square root function which arduino has available in the standard libs https://www.arduino.cc/reference/en/language/functions/math/sqrt/.
 
 It's certainly a lot simpler than the delta kinematics needed for a delta 3d printer. And is about the same as the one
-needed for a corexy (in computational complexity).
+needed for a corexy (in computational complexity). The hangprinter from tobben (also one that uses cables but here for full 3d motion) even has an example marlin change to the path planner: https://gitlab.com/tobben/hangprinter/blob/Openscad_version_3/firmware/Marlin_subtree/Marlin/Marlin.h
+
 
 
 Best wishes for 2020 and Merry Christmas for everyone!
