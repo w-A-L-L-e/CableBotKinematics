@@ -25,7 +25,7 @@ wanted x1,y1 coordinates.
 This all depends on where your motors are located and this is now just hardcoded as (Katrol) K coordinates.
 We have K1x, K1y which is the top left motor coordinate. And K2x, K2y which is the top right motor coordonate.
 
-So after making your frame all you need to do is for instance fill in the millmimeters measured from bottom to top
+So after making your frame all you need to do is for instance fill in the distance measured from bottom to top
 and left to right for the K1 and K2 motors. The origin is in the bottom left of your frame and the maximum height
 should be a little lower than the motors (same for left and right, best to keep away a few cm from the edges to allow
 cables to reach).
