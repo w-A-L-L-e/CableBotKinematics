@@ -1,12 +1,13 @@
+# Cable Bot Kinematics.
 Was wondering how to do the coordinate transformation for having a CNC or drawbot suspended with 2 cables.
 
 Many examples have been done in the past:
-https://www.instructables.com/id/Drawbot/
-https://hackaday.com/2018/10/08/another-drawbot-uses-a-pi-and-web-sockets/
-https://hackaday.com/2010/06/06/drawbot-produces-portraits-very-slowly/
+ - https://www.instructables.com/id/Drawbot/
+ - https://hackaday.com/2018/10/08/another-drawbot-uses-a-pi-and-web-sockets/
+ - https://hackaday.com/2010/06/06/drawbot-produces-portraits-very-slowly/
 
 And yes even routers for cutting wood can be hooked up this way:
-https://www.maslowcnc.com/
+ - https://www.maslowcnc.com/
 
 Then I saw an episode of team scheire and they hinted the actual maths involved might be complicated to run on an arduino. 
 So therefore I took my pen and paper and just started scribbling ;)
@@ -84,3 +85,4 @@ It's certainly a lot simpler than the delta kinematics needed for a delta 3d pri
 needed for a corexy (in computational complexity).
 
 
+Best wishes for 2020 and Merry Christmas for everyone!
