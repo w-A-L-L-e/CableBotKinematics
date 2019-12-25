@@ -141,6 +141,8 @@ drawbot gantry and eliminates the above issue with the hangprinter.
 
 I'll try to see if I find some spare time when I'm back in Belgium and then incorporate this into a marlin variant like the hangprinter has done.
 https://gitlab.com/tobben/hangprinter/blob/Openscad_version_3/firmware/Marlin_subtree/Marlin/Marlin.h
+2020 is however already pretty busy and I'm currently on holiday in Peru until februari so it's probably not verry soon. We've also got a kickstarter
+running for AnyKey (anykey.shop). And that gets priority for now...
 
 
 Best wishes for 2020 and Merry Christmas for everyone!
