@@ -139,5 +139,8 @@ It's similar to the hangprinter but that one has the issue it only prints in a l
 This variant only targets the x-y plane using the cable setup. And the z is done like the core-xy or ultimaker variants it improves on the original
 drawbot gantry and eliminates the above issue with the hangprinter.
 
+I'll try to see if I find some spare time when I'm back in Belgium and then incorporate this into a marlin variant like the hangprinter has done.
+https://gitlab.com/tobben/hangprinter/blob/Openscad_version_3/firmware/Marlin_subtree/Marlin/Marlin.h
+
 
 Best wishes for 2020 and Merry Christmas for everyone!
