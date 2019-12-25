@@ -92,7 +92,14 @@ This means you can only go verry slow and also it only works on a vertical plane
 Also if you try to go faster you'll just introduce a lot of wobble etc. There is a solution however. By removing the weights and
 adding a third cable you can constrain the toolhead without using gravity. We only need to compute the length of that third cable
 and it's attached to the bottom of the toolhead using a pully. It's fixed in the origin and on the bottom right we use a third stepper
-to make this cable the exact length l3.
+to make this cable the exact length lengteA3.
+
+Because we did the above maths, computing lengteA3 is actually pretty similar and not that difficult/complex either:
+```
+  double omega = K3x - x1;
+  lengteA3 = sqrt( x1*x1 + y1*y1 ) + sqrt( omega*omega + y1*y1 );
+```
+
 
 So I just quickly extended the proof of concept code with the computation for this third length l3 and this is the output when we run it:
 ```
@@ -132,6 +139,10 @@ lengteA3 = 21.025
 --------------------------
 
 ```
+
+Basically when toolhead goes down A3 becomes shorter and when it goes higher it's a bit longer. Just long enough to take up the slop
+and still keep everything tight. 
+
 computeDrawbotZeroG is a promising idea and would allow the construction of cnc and 3d printers in a new and original way. 
 Currently there is standard cartesion, delta, core-xy  the etch-a-sketch or ultimaker gantry and the 'scarab arm'. 
 This is yet another way of moving a toolhead around quickly using 3 cables/steppers (a fourth for the z-plane if you want 3d movement). 
@@ -144,5 +155,5 @@ https://gitlab.com/tobben/hangprinter/blob/Openscad_version_3/firmware/Marlin_su
 2020 is however already pretty busy and I'm currently on holiday in Peru until februari so it's probably not verry soon. We've also got a kickstarter
 running for AnyKey (anykey.shop). And that gets priority for now...
 
-
 Best wishes for 2020 and Merry Christmas for everyone!
+
