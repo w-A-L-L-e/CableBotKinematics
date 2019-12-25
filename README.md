@@ -86,4 +86,58 @@ needed for a corexy (in computational complexity). The hangprinter from tobben (
 
 
 
+# Level2 : Going zero G. Or faster whichever you prefer ;).
+Above kinematics has one fatal flaw: it uses gravity and weights to acchieve movement.
+This means you can only go verry slow and also it only works on a vertical plane as you need gravity to pull down on the toolhead.
+Also if you try to go faster you'll just introduce a lot of wobble etc. There is a solution however. By removing the weights and
+adding a third cable you can constrain the toolhead without using gravity. We only need to compute the length of that third cable
+and it's attached to the bottom of the toolhead using a pully. It's fixed in the origin and on the bottom right we use a third stepper
+to make this cable the exact length l3.
+
+So I just quickly extended the proof of concept code with the computation for this third length l3 and this is the output when we run it:
+```
+x1 = 9
+y1 = 12
+lengteA1 = 10.8167
+lengteA2 = 12.53
+lengteA3 = 31.2788
+--------------------------
+
+x1 = 10
+y1 = 12
+lengteA1 = 11.6619
+lengteA2 = 11.6619
+lengteA3 = 31.241
+--------------------------
+
+x1 = 11
+y1 = 12
+lengteA1 = 12.53
+lengteA2 = 10.8167
+lengteA3 = 31.2788
+--------------------------
+
+x1 = 3
+y1 = 16
+lengteA1 = 3.60555
+lengteA2 = 17.1172
+lengteA3 = 39.6241
+--------------------------
+
+x1 = 20
+y1 = 1
+lengteA1 = 26.2488
+lengteA2 = 17
+lengteA3 = 21.025
+--------------------------
+
+```
+computeDrawbotZeroG is a promising idea and would allow the construction of cnc and 3d printers in a new and original way. 
+Currently there is standard cartesion, delta, core-xy  the etch-a-sketch or ultimaker gantry and the 'scarab arm'. 
+This is yet another way of moving a toolhead around quickly using 3 cables/steppers (a fourth for the z-plane if you want 3d movement). 
+It's similar to the hangprinter but that one has the issue it only prints in a large pyramid: the higher you go the smaller the x-y plane gets. 
+This variant only targets the x-y plane using the cable setup. And the z is done like the core-xy or ultimaker variants it improves on the original
+drawbot gantry and eliminates the above issue with the hangprinter.
+
+
 Best wishes for 2020 and Merry Christmas for everyone!
