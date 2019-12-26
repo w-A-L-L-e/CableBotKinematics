@@ -191,14 +191,18 @@ It's similar to the hangprinter but that one has the issue it only prints in a l
 This variant only targets the x-y plane using the cable setup. And the z is done like the core-xy or ultimaker variants it improves on the original
 drawbot gantry and eliminates the above issue with the hangprinter.
 
+These are the math scribblings done for the extended version in order to get to the formula for the length of the tensioning cable (lengteA3):
+
+<img width="449" alt="Screenshot 2019-12-25 at 21 18 05" src="https://user-images.githubusercontent.com/710803/71453939-1326b600-275c-11ea-95b3-a3fa8410c531.png">
+
+
+All of a sudden the hangprinter kinematics from Tobben also makes a lot of sense after doing the maths myself, as it's verry similar :
+<img width="604" alt="hangprinter_kinematics" src="https://user-images.githubusercontent.com/710803/71454358-6bf74e00-275e-11ea-8e17-8bb7453fd45d.png">
+
 I'll try to see if I find some spare time when I'm back in Belgium and then incorporate this into a marlin variant like the hangprinter has done.
 https://gitlab.com/tobben/hangprinter/blob/Openscad_version_3/firmware/Marlin_subtree/Marlin/Marlin.h
 2020 is however already pretty busy and I'm currently on holiday in Peru until februari so it's probably not verry soon. We've also got a kickstarter
 running for AnyKey (anykey.shop). And that gets priority for now...
-
-Ow yeah and this is the extended version math scribblings to get to the formula for the length of the tensioning cable (lengteA3):
-
-<img width="449" alt="Screenshot 2019-12-25 at 21 18 05" src="https://user-images.githubusercontent.com/710803/71453939-1326b600-275c-11ea-95b3-a3fa8410c531.png">
 
 
 Best wishes for 2020 and Merry Christmas for everyone!
