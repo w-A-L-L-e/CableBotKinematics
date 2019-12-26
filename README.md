@@ -10,9 +10,9 @@ And yes even routers for cutting wood can be hooked up this way:
  - https://www.maslowcnc.com/
 
 Then I saw an episode of team scheire and they hinted the actual maths involved might be complicated to run on an arduino. 
-So therefore I took my pen and paper and just started scribbling ;)
+This sparked my interest to see if it could be done, so I took my pen and paper and just started scribbling ;)
 Turns out it's pretty easily to do the transformation from x,y coordinate to the wanted stepper movements
-using some basic maths.
+using some basic trigenometry maths which mostly involves using Pythogoras rule a bunch of times and picking your triangles so that you have right angle ones in all cases.
 
 Here's a quick and dirty page of math's that made the demo code possible:
 ![cable_bot_maths](https://user-images.githubusercontent.com/710803/71426082-9f5cae80-2672-11ea-8815-129444c5dd8a.JPG)
