@@ -196,5 +196,10 @@ https://gitlab.com/tobben/hangprinter/blob/Openscad_version_3/firmware/Marlin_su
 2020 is however already pretty busy and I'm currently on holiday in Peru until februari so it's probably not verry soon. We've also got a kickstarter
 running for AnyKey (anykey.shop). And that gets priority for now...
 
+Ow yeah and this is the extended version math scribblings to get to the formula for the length of the tensioning cable (lengteA3):
+
+<img width="449" alt="Screenshot 2019-12-25 at 21 18 05" src="https://user-images.githubusercontent.com/710803/71453939-1326b600-275c-11ea-95b3-a3fa8410c531.png">
+
+
 Best wishes for 2020 and Merry Christmas for everyone!
 
