@@ -11,7 +11,7 @@ description       : computeDrawbotTransform: Makes moving in X-Y plane possible 
                     able to move fast. The dead weight is now also eliminated and therefore you can move less mass
                     around and not worry about wobbling, chatter etc.
 First version     : 24/12/2019
-Improved version  : 25/12/2019
+Improved version  : 25/12/2019 
 copyright         : Walter Schreppers
 =============================================================================*/
 
@@ -57,11 +57,12 @@ void computeDrawbotTransform( double x1, double y1, double& lengteA1, double& le
 //Its a variation on the hangprinter and also a bit like a corexy machine combined. Will test this in practice
 //when I'm back in belgium.
 void computeDrawbotZeroG( double x1, double y1, double& lengteA1, double& lengteA2, double& lengteA3 ){
-  // K1 x,y is katrol 1 x+y coordinate
+  
+  // K1 x,y is katrol 1 x+y coordinate (set this to match your machine)
   double K1x = 0.0;
   double K1y = 18.0;
 
-  // K2 x,y is katrol 2 x+y coordinate
+  // K2 x,y is katrol 2 x+y coordinate 
   double K2x = 20.0;
   double K2y = 18.0;
 
@@ -69,21 +70,29 @@ void computeDrawbotZeroG( double x1, double y1, double& lengteA1, double& lengte
   double K3x = 20.0;
   // double K3y = 0.0; //not used, we assume it's always zero in further calculations
 
+  // delta_offset and gamma_offset are added because the pulleys are most likely a bit off-center (they ride on a ring with certain diameter which determines distance to center)
+  // for a simple drawbot it probably doesn't make much difference but if you want an exact cnc this needs to be added.
+  double gamma_offset = 0.0; // set this to be the distance to the center
+  double delta_offset = 0.0; // set this to be distance to the center 
+
   double gamma1 = K2x - x1;
   double gamma2 = K2y - y1;
 
   double delta1 = x1 - K1x;
   double delta2 = K1y - y1;
 
-  // lengte A1 = stepper 1 movement 
-  lengteA1 = sqrt( delta1*delta1 + delta2 * delta2 );
+  // lengte A1 = stepper 1 needs to move so that lengteA1 is acchieved. Basically moving distance will be defined by: previous lengteA1 - lengteA1
+  lengteA1 = sqrt( delta1*delta1 + delta2 * delta2 ) - delta_offset;
   
-  // lengte A2 = stepper 2 movement
-  lengteA2 = sqrt( gamma1*gamma1 + gamma2 * gamma2 );
+  // lengte A2 = stepper 2 needs to make cable 2 lengteA2 long
+  lengteA2 = sqrt( gamma1*gamma1 + gamma2 * gamma2 ) - gamma_offset;
 
-  // lengte A3 = stepper 3 movement needed (this cable pulls down on toolhead) we again use some trigenometry to calculate the exact length needed.
-  double omega = K3x - x1;
-  lengteA3 = sqrt( x1*x1 + y1*y1 ) + sqrt( omega*omega + y1*y1 );
+  // lengte A3 = stepper 3 needs to make the bottom (additional tensioning cable) lengteA3 long so that everything stays tight without the need of having
+  // bricks or weights on the toolhead.
+  double bottomKatrolOffset = 1.0; // most likely the bottom pulley is offset to be lower by a few cm from center of toolhead. this allows to adjust that length
+  double omega1 = K3x - x1;
+  double omega2 = y1 - bottomKatrolOffset;
+  lengteA3 = sqrt( x1*x1 + omega2*omega2 ) + sqrt( omega1*omega1 + omega2*omega2 );
 }
 
 
@@ -130,6 +139,28 @@ int main(){
   debugDrawbotZeroG( 11.0, 12.0, l1, l2, l3 );
   debugDrawbotZeroG( 3.0,  16.0, l1, l2, l3 );
   debugDrawbotZeroG( 20.0, 1.0, l1, l2, l3 );
+
+
+  cout<<"nine equally spaced points to verify my quick and dirty christmas maths ;) "<<endl;
+
+  cout << "top 3 points:"<<endl;
+  debugDrawbotZeroG( 1.0, 16.0, l1, l2, l3 );  // top left
+  debugDrawbotZeroG( 9.0, 16.0, l1, l2, l3 );  // top center (approximately)
+  debugDrawbotZeroG( 18.0, 16.0, l1, l2, l3 ); // top right
+  cout << endl;
+
+  cout << "middle 3 points:"<<endl;
+  debugDrawbotZeroG( 1.0, 8.0, l1, l2, l3 );  // middle left
+  debugDrawbotZeroG( 9.0, 8.0, l1, l2, l3 );  // middle center (approx.)
+  debugDrawbotZeroG( 18.0, 8.0, l1, l2, l3 ); // middle right
+  cout << endl;
+
+
+  cout << "bottom 3 points:"<<endl; //stay away from going to much into corners as cables won't be able to reach/tension
+  debugDrawbotZeroG( 1.0,  3.0, l1, l2, l3 ); // bottom left
+  debugDrawbotZeroG( 9.0, 3.0, l1, l2, l3 );  // bottom center (approx)
+  debugDrawbotZeroG( 18.0, 3.0, l1, l2, l3 ); // bottom right
+  cout << endl;
 
   return 0;
 }
