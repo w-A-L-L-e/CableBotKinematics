@@ -93,10 +93,9 @@ void computeDrawbotImproved(double x1, double y1, double &lengteA1, double &leng
 
     // lengte A3 = stepper 3 needs to make the bottom (additional tensioning cable) lengteA3 long so that everything stays tight without the
     // need of having bricks or weights on the toolhead.
-    double bottomKatrolOffset =
-        1.0; // most likely the bottom pulley is offset to be lower by a few cm from center of toolhead. this allows to adjust that length
+    double omega_offset=1.0; // most likely the bottom pulley is offset to be lower by a few cm from center of toolhead. this allows to adjust that length
     double omega1 = K3x - x1;
-    double omega2 = y1 - bottomKatrolOffset;
+    double omega2 = y1 - omega_offset;
     lengteA3 = sqrt(x1 * x1 + omega2 * omega2) + sqrt(omega1 * omega1 + omega2 * omega2);
 }
 
