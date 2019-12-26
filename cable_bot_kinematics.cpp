@@ -20,6 +20,13 @@ copyright         : Walter Schreppers
 
 using namespace std;
 
+
+//square function (can be made into macro as well, for now this is just to get things working).
+//it allows to remove some code duplication in later formulae's
+double sq( double n ){
+  return n*n;
+}
+
 // Here we use 2 cables to move a toolhead in x-y plane. This relies however on gravity
 // pulling down on the toolhead. The issue is that you will always need to go slow and the x-y plane
 // needs to be vertical. Also in space you would be out of luck using these mechanics :)
@@ -40,23 +47,23 @@ void computeDrawbotTransform(double x1, double y1, double &lengteA1, double &len
     double delta2 = K1y - y1;
 
     // lengte A1 = stepper 1 beweging
-    lengteA1 = sqrt(delta1 * delta1 + delta2 * delta2);
+    lengteA1 = sqrt( sq(delta1) + sq(delta2) ); 
 
     // lengte A2 = stepper 2 beweging
-    lengteA2 = sqrt(gamma1 * gamma1 + gamma2 * gamma2);
+    lengteA2 = sqrt( sq(gamma1) + sq(gamma2) );
 }
 
-// improved version, we have 3rd cable pulling down here, no need for bricks/dead weight
+// Improved version, we have 3rd cable pulling down here, no need for bricks/dead weight
 // as the third cable constrains the toolhead by pulling down it's attached to the origin
 // and a third motor is in the bottom right. The cable is attached using a pulley at the bottom
 // of the toolhead by making it shorter/longer the right amount you get a fully constrained toolhead in the x-y plane.
 // this function computes the length of A1, A2 and the new A3 length.
+//
 // It's actually similar to the hangprinter kinematics but does not attempt 3d motion but proper 2d motion. The
 // third access can be done easily like traditional printers using a moving bed in the z-plane.
 //
 // I've looked around and although the idea is pretty simple it seems like a Never Been Done beforei (NBD's are just like in skateboarding
-// pretty rare in IT nowadays ;) ) Its a variation on the hangprinter and also a bit like a corexy machine combined. Will test this in
-// practice when I'm back in belgium.
+// pretty rare in IT nowadays ;) ) 
 void computeDrawbotImproved(double x1, double y1, double &lengteA1, double &lengteA2, double &lengteA3)
 {
 
@@ -86,17 +93,17 @@ void computeDrawbotImproved(double x1, double y1, double &lengteA1, double &leng
 
     // lengte A1 = stepper 1 needs to move so that lengteA1 is acchieved. Basically moving distance will be defined by: previous lengteA1 -
     // lengteA1
-    lengteA1 = sqrt(delta1 * delta1 + delta2 * delta2) - delta_offset;
+    lengteA1 = sqrt( sq(delta1) + sq(delta2) ) - delta_offset;
 
     // lengte A2 = stepper 2 needs to make cable 2 lengteA2 long
-    lengteA2 = sqrt(gamma1 * gamma1 + gamma2 * gamma2) - gamma_offset;
+    lengteA2 = sqrt( sq(gamma1) + sq(gamma2) ) - gamma_offset;
 
     // lengte A3 = stepper 3 needs to make the bottom (additional tensioning cable) lengteA3 long so that everything stays tight without the
     // need of having bricks or weights on the toolhead.
     double omega_offset=1.0; // most likely the bottom pulley is offset to be lower by a few cm from center of toolhead. this allows to adjust that length
     double omega1 = K3x - x1;
     double omega2 = y1 - omega_offset;
-    lengteA3 = sqrt(x1 * x1 + omega2 * omega2) + sqrt(omega1 * omega1 + omega2 * omega2);
+    lengteA3 = sqrt( sq(x1) + sq(omega2) ) + sqrt( sq(omega1) + sq(omega2) );
 }
 
 void debugDrawbot(double x1, double y1, double &l1, double &l2)
@@ -166,3 +173,5 @@ int main()
 
     return 0;
 }
+
+
