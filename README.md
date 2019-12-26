@@ -86,10 +86,11 @@ needed for a corexy (in computational complexity). The hangprinter from tobben (
 
 
 
-# Level2 : Going zero G. Or faster whichever you prefer ;).
+# Level2 : Going faster, adding an additional tensioning cable.
+
 Above kinematics has one fatal flaw: it uses gravity and weights to acchieve movement.
-This means you can only go verry slow and also it only works on a vertical plane as you need gravity to pull down on the toolhead.
-Also if you try to go faster you'll just introduce a lot of wobble etc. There is a solution however. By removing the weights and
+This means you can only move the toolhead slowly and also it only works on a vertical plane as you need gravity to pull down on the toolhead.
+If you try to go faster you'll just introduce a lot of wobble etc. There is a solution however. By removing the weights and
 adding a third cable you can constrain the toolhead without using gravity. We only need to compute the length of that third cable
 and it's attached to the bottom of the toolhead using a pully. It's fixed in the origin and on the bottom right we use a third stepper
 to make this cable the exact length lengteA3.
@@ -99,53 +100,93 @@ Because we did the above maths, computing lengteA3 is actually pretty similar an
   double omega = K3x - x1;
   lengteA3 = sqrt( x1*x1 + y1*y1 ) + sqrt( omega*omega + y1*y1 );
 ```
+In the actual code we've added some parameters omega_offset, delta_offset, gamma_offset. these are to be set to the distance of the
+toolhead to the pulley. The toolhead is dead center but the pulleys are on a disk of a certain diameter to be chosen by the machine at hand and can be configured
+in the code.
 
 
-So I just quickly extended the proof of concept code with the computation for this third length l3 and this is the output when we run it:
+Now this new improved version I also computed 9 points (3 on top, 3 in middle and 3 near the bottom). And we see our formulae are doing their
+work and keeping everything nice and tight:
+
 ```
-x1 = 9
-y1 = 12
-lengteA1 = 10.8167
-lengteA2 = 12.53
-lengteA3 = 31.2788
---------------------------
+nine equally spaced points to verify my quick and dirty christmas maths ;)
+top 3 points:
 
-x1 = 10
-y1 = 12
-lengteA1 = 11.6619
-lengteA2 = 11.6619
-lengteA3 = 31.241
---------------------------
-
-x1 = 11
-y1 = 12
-lengteA1 = 12.53
-lengteA2 = 10.8167
-lengteA3 = 31.2788
---------------------------
-
-x1 = 3
+x1 = 1
 y1 = 16
-lengteA1 = 3.60555
-lengteA2 = 17.1172
-lengteA3 = 39.6241
+lengteA1 = 2.23607
+lengteA2 = 19.105
+lengteA3 = 39.2407
 --------------------------
 
-x1 = 20
-y1 = 1
-lengteA1 = 26.2488
-lengteA2 = 17
-lengteA3 = 21.025
+x1 = 9
+y1 = 16
+lengteA1 = 9.21954
+lengteA2 = 11.1803
+lengteA3 = 36.0939
+--------------------------
+
+x1 = 18
+y1 = 16
+lengteA1 = 18.1108
+lengteA2 = 2.82843
+lengteA3 = 38.5635
+--------------------------
+
+middle 3 points:
+
+x1 = 1
+y1 = 8
+lengteA1 = 10.0499
+lengteA2 = 21.4709
+lengteA3 = 27.3195
+--------------------------
+
+x1 = 9
+y1 = 8
+lengteA1 = 13.4536
+lengteA2 = 14.8661
+lengteA3 = 24.4402
+--------------------------
+
+x1 = 18
+y1 = 8
+lengteA1 = 20.5913
+lengteA2 = 10.198
+lengteA3 = 26.5933
+--------------------------
+
+bottom 3 points:
+
+x1 = 1
+y1 = 3
+lengteA1 = 15.0333
+lengteA2 = 24.2074
+lengteA3 = 21.341
+--------------------------
+
+x1 = 9
+y1 = 3
+lengteA1 = 17.4929
+lengteA2 = 18.6011
+lengteA3 = 20.3999
+--------------------------
+
+x1 = 18
+y1 = 3
+lengteA1 = 23.4307
+lengteA2 = 15.1327
+lengteA3 = 20.9392
 --------------------------
 
 ```
 
-Basically when toolhead goes down A3 becomes shorter and when it goes higher it's a bit longer. Just long enough to take up the slop
-and still keep everything tight. 
+Basically what we see happening is that when the toolhead goes down lengteA3 becomes shorter and when it goes higher it's a bit longer. 
 
-computeDrawbotZeroG is a promising idea and would allow the construction of cnc and 3d printers in a new and original way. 
+computeDrawbotImproved is a promising idea and would allow the construction of cnc and 3d printers in a new and original way. 
 Currently there is standard cartesion, delta, core-xy  the etch-a-sketch or ultimaker gantry and the 'scarab arm'. 
-This is yet another way of moving a toolhead around quickly using 3 cables/steppers (a fourth for the z-plane if you want 3d movement). 
+
+This above version will be yet another way of moving a toolhead around quickly using 3 cables/steppers (a fourth for the z-plane if you want 3d movement). 
 It's similar to the hangprinter but that one has the issue it only prints in a large pyramid: the higher you go the smaller the x-y plane gets. 
 This variant only targets the x-y plane using the cable setup. And the z is done like the core-xy or ultimaker variants it improves on the original
 drawbot gantry and eliminates the above issue with the hangprinter.

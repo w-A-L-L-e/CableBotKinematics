@@ -4,7 +4,7 @@ filename          : cable_bot_kinematics.cpp
 description       : computeDrawbotTransform: Makes moving in X-Y plane possible using 2 cables.
                       This is pretty standard and has been done before in various drawing bots.
                       The reason is you only need 2 steppers to move a toolhead in a large plane.
-                  : computeDrawbotZeroG: Use third stepper to pull down the toolhead.
+                  : computeDrawbotImproved: Use third stepper to pull down the toolhead.
                     This allows faster movements, it also allows to have a horizontal x-y plane (for instance
                     on a 3d printer. And it solves many mechanical issues. You need a third stepper
                     but still it allows to construct large drawing machines and you have the benifit of being
@@ -56,7 +56,7 @@ void computeDrawbotTransform( double x1, double y1, double& lengteA1, double& le
 //I've looked around and although the idea is pretty simple it seems like a Never Been Done before ;)
 //Its a variation on the hangprinter and also a bit like a corexy machine combined. Will test this in practice
 //when I'm back in belgium.
-void computeDrawbotZeroG( double x1, double y1, double& lengteA1, double& lengteA2, double& lengteA3 ){
+void computeDrawbotImproved( double x1, double y1, double& lengteA1, double& lengteA2, double& lengteA3 ){
   
   // K1 x,y is katrol 1 x+y coordinate (set this to match your machine)
   double K1x = 0.0;
@@ -108,8 +108,8 @@ void debugDrawbot( double x1, double y1, double& l1, double& l2 ){
 }
 
 
-void debugDrawbotZeroG( double x1, double y1, double& l1, double& l2, double& l3 ){
-  computeDrawbotZeroG( x1, y1, l1, l2, l3 );
+void debugDrawbotImproved( double x1, double y1, double& l1, double& l2, double& l3 ){
+  computeDrawbotImproved( x1, y1, l1, l2, l3 );
   
   cout << endl;
   cout << "x1 = " << x1 << endl;
@@ -134,32 +134,32 @@ int main(){
 
   // same points but now also compute length of third bottom cable l3 which pulls down our toolhead
   double l3 = 0;
-  debugDrawbotZeroG( 9.0,  12.0, l1, l2, l3 );
-  debugDrawbotZeroG( 10.0, 12.0, l1, l2, l3 );
-  debugDrawbotZeroG( 11.0, 12.0, l1, l2, l3 );
-  debugDrawbotZeroG( 3.0,  16.0, l1, l2, l3 );
-  debugDrawbotZeroG( 20.0, 1.0, l1, l2, l3 );
+  debugDrawbotImproved( 9.0,  12.0, l1, l2, l3 );
+  debugDrawbotImproved( 10.0, 12.0, l1, l2, l3 );
+  debugDrawbotImproved( 11.0, 12.0, l1, l2, l3 );
+  debugDrawbotImproved( 3.0,  16.0, l1, l2, l3 );
+  debugDrawbotImproved( 20.0, 1.0, l1, l2, l3 );
 
 
   cout<<"nine equally spaced points to verify my quick and dirty christmas maths ;) "<<endl;
 
   cout << "top 3 points:"<<endl;
-  debugDrawbotZeroG( 1.0, 16.0, l1, l2, l3 );  // top left
-  debugDrawbotZeroG( 9.0, 16.0, l1, l2, l3 );  // top center (approximately)
-  debugDrawbotZeroG( 18.0, 16.0, l1, l2, l3 ); // top right
+  debugDrawbotImproved( 1.0, 16.0, l1, l2, l3 );  // top left
+  debugDrawbotImproved( 9.0, 16.0, l1, l2, l3 );  // top center (approximately)
+  debugDrawbotImproved( 18.0, 16.0, l1, l2, l3 ); // top right
   cout << endl;
 
   cout << "middle 3 points:"<<endl;
-  debugDrawbotZeroG( 1.0, 8.0, l1, l2, l3 );  // middle left
-  debugDrawbotZeroG( 9.0, 8.0, l1, l2, l3 );  // middle center (approx.)
-  debugDrawbotZeroG( 18.0, 8.0, l1, l2, l3 ); // middle right
+  debugDrawbotImproved( 1.0, 8.0, l1, l2, l3 );  // middle left
+  debugDrawbotImproved( 9.0, 8.0, l1, l2, l3 );  // middle center (approx.)
+  debugDrawbotImproved( 18.0, 8.0, l1, l2, l3 ); // middle right
   cout << endl;
 
 
   cout << "bottom 3 points:"<<endl; //stay away from going to much into corners as cables won't be able to reach/tension
-  debugDrawbotZeroG( 1.0,  3.0, l1, l2, l3 ); // bottom left
-  debugDrawbotZeroG( 9.0, 3.0, l1, l2, l3 );  // bottom center (approx)
-  debugDrawbotZeroG( 18.0, 3.0, l1, l2, l3 ); // bottom right
+  debugDrawbotImproved( 1.0,  3.0, l1, l2, l3 ); // bottom left
+  debugDrawbotImproved( 9.0, 3.0, l1, l2, l3 );  // bottom center (approx)
+  debugDrawbotImproved( 18.0, 3.0, l1, l2, l3 ); // bottom right
   cout << endl;
 
   return 0;
