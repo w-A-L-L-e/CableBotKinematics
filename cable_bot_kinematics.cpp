@@ -20,9 +20,8 @@ copyright         : Walter Schreppers
 
 using namespace std;
 
-
-//square function (can be made into macro as well, for now this is just to get things working).
-//it allows to remove some code duplication in later formulae's
+// square function, using -O2 it's optimised to inline and
+// makes later formulae shorter
 double sq( double n ){
   return n*n;
 }
